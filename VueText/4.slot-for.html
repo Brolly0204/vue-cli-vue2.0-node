@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--<child><div slot="slot1">我是slot1</div><div slot="slot2">我是slot2</div></child>-->
+    <child>
+        <template slot="item" scope="props">
+            <li>{{props.text}}</li>
+        </template>
+    </child>
+</div>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            title: '我要睡觉了'
+        },
+        components: {
+            'child': {
+                template: `<ul>
+                   <slot name="item"
+                   v-for="item in items"
+                   :text="item"
+                   >
+                   </slot>
+              </ul>`,
+                data(){
+                    return {
+                        items: [111, 222, 333, 444, 555]
+                    }
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

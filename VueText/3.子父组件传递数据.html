@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+    <my-global></my-global>
+</div>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+    Vue.component('my-global', {
+        template: '<div><h3>全局组件</h3>{{num}}</div>',
+        data(){
+            return {
+                num: 10
+            }
+        },
+        created(){
+
+        },
+        methods: {
+            watch (n) {
+               this.num = n;
+            }
+        }
+    });
+   var vm = new Vue({
+          el: '#app',
+          components:{
+              'parent':{
+                  template:'<div><h3>{{title}}{{age}}</h3><child @add="sum"></child></div>',
+                  data(){
+                      return {
+                          title: 'parent组件',
+                          age: 0
+                      }
+                  },
+                  methods:{
+                     sum(age){
+                         this.age = age;
+                     }
+                  },
+                  components: {
+                      'child':{
+                          template: '<div @click="count"><h3>{{title}}</h3></div>',
+                          data(){
+                              return {
+                                  title: '我是child',
+                                  age: 0
+                              }
+                          },
+                          methods:{
+                              count(){
+                                  this.$emit('add',this.age++);
+                                  vm.$emit('add', this.age++);
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      });
+    vm.$on('add',function(n){
+        alert(n);
+    });
+</script>
+</body>
+</html>

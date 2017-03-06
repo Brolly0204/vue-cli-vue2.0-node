@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello1></hello1>
+    <hello2></hello2>
+</div>
+<template id="hello1">
+    <div>
+        <h3>hello1</h3>
+        <button @click="send">饿了么</button>
+    </div>
+</template>
+<template id="hello2">
+    <div>
+        <h3>hello2</h3>
+        <div v-show="msg">say:{{msg}}</div>
+    </div>
+</template>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+    var Event = new Vue;
+    new Vue({
+        el: '#app',
+        components: {
+            'hello1':{
+                template: '#hello1',
+                data(){
+                  return {
+                      msg: '我不饿'
+                  }
+                },
+                methods: {
+                    send(){
+                        Event.$emit('饿了么', this.msg)
+                    }
+                }
+            },
+            'hello2':{
+                created(){ // mounted
+                  Event.$on('饿了么', (data) => {
+                        this.msg = data;
+                        console.log(this.msg);
+                  })
+                },
+                data(){
+                  return {
+                      msg: ''
+                  }
+                },
+                template: '#hello2'
+            }
+        }
+    })
+</script>
+</body>
+</html>

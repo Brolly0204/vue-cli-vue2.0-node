@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--<child><div slot="slot1">我是slot1</div><div slot="slot2">我是slot2</div></child>-->
+    <child>
+        <template scope="prop">
+            <h3>{{prop.text}}</h3>
+        </template>
+    </child>
+</div>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            title: '我要睡觉了'
+        },
+        components: {
+            'child': {
+                template: `<div>
+                   <!--<slot name="slot2"></slot>-->
+                   <h3>my name is child!</h3>
+                   <!--<slot name="slot1"></slot>-->
+                   <slot :text="title">没有分发内容的时候显示</slot>
+              </div>`,
+                data(){
+                  return {
+                      title: 'ni hao wenli'
+                  }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

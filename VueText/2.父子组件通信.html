@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="total">
+    <child :total="total" name="vueJs"></child>
+</div>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+     new Vue({
+         el: '#app',
+         data:{
+             total: 0
+         },
+         components: {
+           'child': {
+               template: `<div>
+               <h3>{{name}}</h3>
+                 {{total}}
+               </div>`,
+               props: ['total','name']
+           }
+         }
+     })
+</script>
+</body>
+</html>

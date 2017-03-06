@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <my-components @></my-components>
+     <mybtn/>
+</div>
+<script type="text/javascript" src="js/vue2.0.js"></script>
+<script type="text/javascript">
+       Vue.component('my-components',{ // 注册全局组件
+           template: '<h3>我是全局组件</h3>',
+           methods: {
+               watch(n){
+                   alert(n);
+               }
+           }
+       });
+
+      var btn = Vue.extend({ // 组件构造器
+           template: '<div><p>{{count}}</p><button @click="add">我是 is extend!</button></div>',
+            data(){
+                return {
+                    count: 0
+                }
+            },
+           methods: {
+               add(){
+                   this.count++
+               }
+           }
+       });
+       Vue.component('mybtn',btn);
+       new Vue({
+           el: '#app'
+       });
+//       new btn().$mount('#app')
+</script>
+</body>
+</html>
